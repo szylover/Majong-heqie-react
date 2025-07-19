@@ -2,6 +2,46 @@ import { useState, useEffect } from 'react'
 import questions from './data/questions'
 import './App.css'
 
+// Mapping from mahjong tile characters to PNG images
+const tileImages = {
+  '🀀': new URL('../assets/tenhuo/Ton.png', import.meta.url).href,
+  '🀁': new URL('../assets/tenhuo/Nan.png', import.meta.url).href,
+  '🀂': new URL('../assets/tenhuo/Shaa.png', import.meta.url).href,
+  '🀃': new URL('../assets/tenhuo/Pei.png', import.meta.url).href,
+  '🀄': new URL('../assets/tenhuo/Chun.png', import.meta.url).href,
+  '🀅': new URL('../assets/tenhuo/Hatsu.png', import.meta.url).href,
+  '🀆': new URL('../assets/tenhuo/Haku.png', import.meta.url).href,
+  '🀇': new URL('../assets/tenhuo/Man1.png', import.meta.url).href,
+  '🀈': new URL('../assets/tenhuo/Man2.png', import.meta.url).href,
+  '🀉': new URL('../assets/tenhuo/Man3.png', import.meta.url).href,
+  '🀊': new URL('../assets/tenhuo/Man4.png', import.meta.url).href,
+  '🀋': new URL('../assets/tenhuo/Man5.png', import.meta.url).href,
+  '🀌': new URL('../assets/tenhuo/Man6.png', import.meta.url).href,
+  '🀍': new URL('../assets/tenhuo/Man7.png', import.meta.url).href,
+  '🀎': new URL('../assets/tenhuo/Man8.png', import.meta.url).href,
+  '🀏': new URL('../assets/tenhuo/Man9.png', import.meta.url).href,
+  '🀐': new URL('../assets/tenhuo/Sou1.png', import.meta.url).href,
+  '🀑': new URL('../assets/tenhuo/Sou2.png', import.meta.url).href,
+  '🀒': new URL('../assets/tenhuo/Sou3.png', import.meta.url).href,
+  '🀓': new URL('../assets/tenhuo/Sou4.png', import.meta.url).href,
+  '🀔': new URL('../assets/tenhuo/Sou5.png', import.meta.url).href,
+  '🀕': new URL('../assets/tenhuo/Sou6.png', import.meta.url).href,
+  '🀖': new URL('../assets/tenhuo/Sou7.png', import.meta.url).href,
+  '🀗': new URL('../assets/tenhuo/Sou8.png', import.meta.url).href,
+  '🀘': new URL('../assets/tenhuo/Sou9.png', import.meta.url).href,
+  '🀙': new URL('../assets/tenhuo/Pin1.png', import.meta.url).href,
+  '🀚': new URL('../assets/tenhuo/Pin2.png', import.meta.url).href,
+  '🀛': new URL('../assets/tenhuo/Pin3.png', import.meta.url).href,
+  '🀜': new URL('../assets/tenhuo/Pin4.png', import.meta.url).href,
+  '🀝': new URL('../assets/tenhuo/Pin5.png', import.meta.url).href,
+  '🀞': new URL('../assets/tenhuo/Pin6.png', import.meta.url).href,
+  '🀟': new URL('../assets/tenhuo/Pin7.png', import.meta.url).href,
+  '🀠': new URL('../assets/tenhuo/Pin8.png', import.meta.url).href,
+  '🀡': new URL('../assets/tenhuo/Pin9.png', import.meta.url).href,
+}
+
+const getTileImg = tile => tileImages[tile]
+
 function shuffle(array) {
   return array
     .map(value => ({ value, sort: Math.random() }))
@@ -81,8 +121,18 @@ function App() {
           随机模式
         </label>
       </div>
-      <div className="hand">手牌区: [{q.hand.join(' ')}]</div>
-      {q.river.length > 0 && <div className="river">牌河: [{q.river.join(' ')}]</div>}
+      <div className="hand">手牌区:
+        {q.hand.map((t, i) => (
+          <img key={i} src={getTileImg(t)} alt={t} className="tile-img" />
+        ))}
+      </div>
+      {q.river.length > 0 && (
+        <div className="river">牌河:
+          {q.river.map((t, i) => (
+            <img key={i} src={getTileImg(t)} alt={t} className="tile-img" />
+          ))}
+        </div>
+      )}
       <div className="select">请选择要切的牌:</div>
       <div className="buttons">
         {q.hand.map((tile, idx) => (
@@ -91,7 +141,7 @@ function App() {
             className={selected === tile ? 'selected' : ''}
             onClick={() => setSelected(tile)}
           >
-            {tile}
+            <img src={getTileImg(tile)} alt={tile} className="tile-img" />
           </button>
         ))}
       </div>
@@ -102,7 +152,7 @@ function App() {
       </div>
       {showAnalysis && (
         <div className="analysis">
-          正确答案：{q.answer} <br />
+          正确答案：<img src={getTileImg(q.answer)} alt={q.answer} className="tile-img" /> <br />
           {q.analysis}
         </div>
       )}
