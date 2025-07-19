@@ -1,0 +1,25 @@
+.quiz-container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+.header, .footer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.hand, .river, .select, .analysis {
+  margin: 0.5rem 0;
+}
+.buttons button {
+  margin: 0.25rem;
+}
+.selected {
+  background-color: #87cefa;
+}
+.actions button {
+  margin-right: 0.5rem;
+}
+.mode-switch {
+  margin-bottom: 1rem;
+}
