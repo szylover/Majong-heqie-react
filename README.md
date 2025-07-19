@@ -36,3 +36,9 @@ npm run lint
 
 All commands should be executed inside the `app` directory.
 
+## Assets License
+
+The mahjong tile images used in this project are from
+[FluffyStuff/riichi-mahjong-tiles](https://github.com/FluffyStuff/riichi-mahjong-tiles)
+and are distributed under the repository's license.
+
